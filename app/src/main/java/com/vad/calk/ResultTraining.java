@@ -1,4 +1,4 @@
-package com.vadim.trainingsport;
+package com.vad.calk;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;

@@ -1,4 +1,4 @@
-package com.vadim.trainingsport;
+package com.vad.calk;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -184,25 +184,29 @@ public class Training extends AppCompatActivity {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                int minutes = (seconds%3600)/60;
-                int secnds = seconds%60;
-                int milisec = secnds/1000;
-                String format = String.format(Locale.getDefault(), "%d:%02d:%02d", minutes,secnds, milisec);
-                timer.setText(format);
+                handler.postDelayed(this, 1000);
                 if(isRunning){
                     seconds++;
                 }
-                handler.postDelayed(this, 1000);
+                int minutes = (seconds%3600)/60;
+                int secnds = seconds%60;
+                String format = String.format(Locale.getDefault(), "%02d:%02d", minutes,secnds);
+                timer.setText(format);
+
+
             }
         });
 
-
     }
-
     public void onClickFinish(View view) {
         Intent intent = new Intent(this, ResultTraining.class);
         intent.putExtra("nameSport_", nameSport);
         startActivity(intent);
 
+    }
+
+    public void toInformore(View view) {
+        Intent intent = new Intent(this, Information.class);
+        startActivity(intent);
     }
 }

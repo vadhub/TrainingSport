@@ -1,4 +1,4 @@
-package com.vadim.trainingsport;
+package com.vad.calk;
 
 import org.junit.Test;
 

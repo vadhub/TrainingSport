@@ -1,4 +1,4 @@
-package com.vadim.trainingsport;
+package com.vad.calk;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

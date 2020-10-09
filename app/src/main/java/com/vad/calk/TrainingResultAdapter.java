@@ -1,4 +1,4 @@
-package com.vadim.trainingsport;
+package com.vad.calk;
 
 import android.view.LayoutInflater;
 import android.view.View;

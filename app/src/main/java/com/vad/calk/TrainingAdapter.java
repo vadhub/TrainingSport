@@ -1,4 +1,4 @@
-package com.vadim.trainingsport;
+package com.vad.calk;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;

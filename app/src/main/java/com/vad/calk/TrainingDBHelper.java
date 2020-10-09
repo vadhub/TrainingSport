@@ -1,4 +1,4 @@
-package com.vadim.trainingsport;
+package com.vad.calk;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
