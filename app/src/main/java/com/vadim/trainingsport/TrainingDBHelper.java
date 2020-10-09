@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class TrainingDBHelper extends SQLiteOpenHelper {
-    private static final String DB_NAME = "training.db";
-    private static final int DB_VERSION = 0;
+    private static final String DB_NAME = "training_app.db";
+    private static final int DB_VERSION = 1;
 
     public TrainingDBHelper(@Nullable Context context) {
         super(context, DB_NAME, null, DB_VERSION);

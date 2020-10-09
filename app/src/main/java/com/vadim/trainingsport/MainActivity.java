@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements Datable{
     }
 
     private void intoMain(int position){
-        Intent intent = new Intent(this ,MainActivity.class);
+        Intent intent = new Intent(this ,Training.class);
         intent.putExtra("nameSport", trainingAdapter.sportTypes.get(position).getName());
         startActivity(intent);
     }

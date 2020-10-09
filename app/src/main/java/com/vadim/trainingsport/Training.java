@@ -161,7 +161,7 @@ public class Training extends AppCompatActivity {
     }
 
     private void training(){
-        Intent intent = new Intent(this, Training.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

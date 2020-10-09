@@ -50,12 +50,10 @@ public class ResultTraining extends AppCompatActivity {
 
         tableResults.clear();
 
-        Cursor cursor = database.query(TrainingContract.TrainingEntry.TABLE_NAME, null, TrainingContract.TrainingEntry.COLUMN_TYPE_SPORT+" = ?", new String[]{nameSport}, null, null, TrainingContract.TrainingEntry.COLUMN_DATE+" ASC");
+        Cursor cursor = database.query(TrainingContract.TrainingEntry.TABLE_NAME, null, TrainingContract.TrainingEntry.COLUMN_TYPE_SPORT+" = ?", new String[]{nameSport}, null, null, TrainingContract.TrainingEntry.COLUMN_DATE+" DESC");
         Date temp=null;
         while (cursor.moveToNext()){
             if(!cursor.isNull(cursor.getColumnIndex(TrainingContract.TrainingEntry.COLUMN_DATE))){
-
-
 
                 Calendar calendar = Calendar.getInstance();
                 long l = cursor.getLong(cursor.getColumnIndex(TrainingContract.TrainingEntry.COLUMN_DATE));
@@ -68,7 +66,6 @@ public class ResultTraining extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
 
                 if(!d.equals(temp)){
                     temp = d;
@@ -83,7 +80,7 @@ public class ResultTraining extends AppCompatActivity {
     }
 
     public void onClickToHome(View view) {
-        Intent intent = new Intent(this, Training.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }

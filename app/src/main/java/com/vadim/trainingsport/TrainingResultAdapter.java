@@ -46,9 +46,9 @@ public class TrainingResultAdapter extends RecyclerView.Adapter<TrainingResultAd
     public TrainingResultViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if(viewType == DATE){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_result, parent, false);
-        }else{
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_result_numb, parent, false);
+        }else{
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_result, parent, false);
         }
         return new TrainingResultViewHolder(view);
     }
