@@ -1,6 +1,12 @@
 package com.vad.calk;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Exercise {
+
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
     private long date;
