@@ -17,12 +17,12 @@ import java.util.Locale;
 
 public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder> {
 
-    ArrayList<SportType> sportTypes;
+    ArrayList<Exercise> exercises;
 
     private OnItemTrainingListener onItemTrainingListener;
 
-    public ArrayList<SportType> getSportTypes() {
-        return sportTypes;
+    public ArrayList<Exercise> getExercises() {
+        return exercises;
     }
 
     interface OnItemTrainingListener{
@@ -33,14 +33,14 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Traini
         this.onItemTrainingListener = onItemTrainingListener;
     }
 
-    public void setSportTypes(ArrayList<SportType> sportTypes) {
+    public void setExercises(ArrayList<Exercise> exercises) {
         notifyDataSetChanged();
-        this.sportTypes = sportTypes;
+        this.exercises = exercises;
 
     }
 
     public TrainingAdapter() {
-        this.sportTypes = sportTypes;
+        this.exercises = exercises;
     }
 
     @NonNull
@@ -53,13 +53,13 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Traini
 
     @Override
     public void onBindViewHolder(@NonNull final TrainingViewHolder holder, final int position) {
-        holder.nameSport.setText(sportTypes.get(position).getName());
+        holder.nameSport.setText(exercises.get(position).getName());
         Calendar calendar = Calendar.getInstance();
-        long l = sportTypes.get(position).getDate();
+        long l = exercises.get(position).getDate();
         calendar.setTimeInMillis(l);
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
         String dateText = dateFormat.format(calendar.getTime());
-        System.out.println(sportTypes.get(position).getDate());
+        System.out.println(exercises.get(position).getDate());
 
         holder.date.setText(dateText);
     }
@@ -67,7 +67,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Traini
 
     @Override
     public int getItemCount() {
-        return sportTypes.size();
+        return exercises.size();
     }
 
     public class TrainingViewHolder extends RecyclerView.ViewHolder {

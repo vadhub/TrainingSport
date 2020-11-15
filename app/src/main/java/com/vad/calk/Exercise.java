@@ -1,11 +1,11 @@
 package com.vad.calk;
 
-public class SportType {
+public class Exercise {
     private int id;
     private String name;
     private long date;
 
-    public SportType(int id, String name, long date) {
+    public Exercise(int id, String name, long date) {
         this.id=id;
         this.name = name;
         this.date = date;
