@@ -1,9 +1,10 @@
 package com.vad.calk;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "exercises")
 public class Exercise {
 
     @PrimaryKey(autoGenerate = true)
@@ -13,6 +14,12 @@ public class Exercise {
 
     public Exercise(int id, String name, long date) {
         this.id=id;
+        this.name = name;
+        this.date = date;
+    }
+
+    @Ignore
+    public Exercise(String name, long date) {
         this.name = name;
         this.date = date;
     }
