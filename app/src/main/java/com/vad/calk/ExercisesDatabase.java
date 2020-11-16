@@ -10,12 +10,12 @@ import androidx.room.RoomDatabase;
 @Database(entities = Exercise.class, version = 1, exportSchema = false)
 public abstract class ExercisesDatabase extends RoomDatabase {
 
-    private ExercisesDatabase exercisesDatabase;
+    private static ExercisesDatabase exercisesDatabase;
     private static final String DB_NAME = "exercises.db";
 
     private static final Object LOCK = new Object();
 
-    public ExercisesDatabase getInstance(Context context){
+    public static ExercisesDatabase getInstance(Context context){
 
         synchronized (LOCK){
             if(exercisesDatabase == null){
@@ -25,7 +25,7 @@ public abstract class ExercisesDatabase extends RoomDatabase {
 
         return exercisesDatabase;
     }
-    
+
     public abstract ExercieseDao exercieseDao();
 
 }
