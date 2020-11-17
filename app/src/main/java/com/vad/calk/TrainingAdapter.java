@@ -11,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.TrainingViewHolder> {
 
-    ArrayList<Exercise> exercises;
+    List<Exercise> exercises;
 
     private OnItemTrainingListener onItemTrainingListener;
 
-    public ArrayList<Exercise> getExercises() {
+    public List<Exercise> getExercises() {
         return exercises;
     }
 
@@ -33,15 +33,13 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.Traini
         this.onItemTrainingListener = onItemTrainingListener;
     }
 
-    public void setExercises(ArrayList<Exercise> exercises) {
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
         notifyDataSetChanged();
-        this.exercises = exercises;
 
     }
 
-    public TrainingAdapter() {
-        this.exercises = exercises;
-    }
+    public TrainingAdapter() {}
 
     @NonNull
     @Override

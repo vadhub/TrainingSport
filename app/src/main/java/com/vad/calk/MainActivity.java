@@ -2,6 +2,8 @@ package com.vad.calk;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,19 +20,19 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements Datable{
 
     private ImageView addSport;
     private DialogNameSport dialogNameSport;
     private RecyclerView recyclerView;
-    ArrayList<Exercise> exercises = new ArrayList<>();
     private TrainingAdapter trainingAdapter;
     private LayoutInflater layoutInflater;
 
     private MainViewModel viewModel;
 
-    Calendar calendar = Calendar.getInstance();
+    private Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +46,9 @@ public class MainActivity extends AppCompatActivity implements Datable{
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
 
         viewModel = new ViewModelProvider(this).get(MainViewModel.class);
-
+        trainingAdapter = new TrainingAdapter();
         getData();
 
-        trainingAdapter = new TrainingAdapter();
-        trainingAdapter.setExercises(exercises);
         trainingAdapter.setOnItemTrainingListener(new TrainingAdapter.OnItemTrainingListener() {
             @Override
             public void onItemTrainingClick(int position) {
@@ -89,7 +89,13 @@ public class MainActivity extends AppCompatActivity implements Datable{
     }
 
     private void getData(){
-        
+        LiveData<List<Exercise>> exerciesFromDB = viewModel.getExercises();
+        exerciesFromDB.observe(this, new Observer<List<Exercise>>() {
+            @Override
+            public void onChanged(List<Exercise> exercises) {
+                trainingAdapter.setExercises(exercises);
+            }
+        });
     }
 
     public void showDialog(){
@@ -98,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements Datable{
 
     @Override
     public void nameSport(String text) {
-        long date = System.currentTimeMillis();
+        long date = calendar.getTimeInMillis();
 
         if(text!=null){
             Exercise exercise = new Exercise(text, date);
