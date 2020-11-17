@@ -17,7 +17,6 @@ public class DialogNameSport extends DialogFragment {
     EditText nameSport;
     Button btnOk;
 
-
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -35,8 +34,6 @@ public class DialogNameSport extends DialogFragment {
             @Override
             public void onClick(View v) {
                 datable.nameSport(nameSport.getText().toString());
-                datable.recombination();
-
                 getDialog().dismiss();
             }
         });

@@ -2,6 +2,7 @@ package com.vad.calk;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,8 +27,9 @@ public class MainActivity extends AppCompatActivity implements Datable{
     ArrayList<Exercise> exercises = new ArrayList<>();
     private TrainingAdapter trainingAdapter;
     private LayoutInflater layoutInflater;
-    private TrainingDBHelper dbHelper;
-    private SQLiteDatabase database;
+
+    private MainViewModel viewModel;
+
     Calendar calendar = Calendar.getInstance();
 
     @Override
@@ -39,9 +41,9 @@ public class MainActivity extends AppCompatActivity implements Datable{
 
         addSport = (ImageView) findViewById(R.id.btn_add);
         dialogNameSport = new DialogNameSport();
-        dbHelper = new TrainingDBHelper(this);
-        database = dbHelper.getWritableDatabase();
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
+
+        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
 
         getData();
 
@@ -83,35 +85,11 @@ public class MainActivity extends AppCompatActivity implements Datable{
 
     private void remove(int position){
 
-        int id = exercises.get(position).getId();
-        String whereSportType = TrainingContract.TrainingSportType._ID + " = ?";
-        String[] whereArgsSportType = new String[]{Integer.toString(id)};
 
-        String nameSport = exercises.get(position).getName();
-        String whereTraining = TrainingContract.TrainingEntry.COLUMN_TYPE_SPORT + " = ?";
-        String[] whereArgsTraining = new String[]{nameSport};
-
-        database.delete(TrainingContract.TrainingSportType.TABLE_NAME, whereSportType, whereArgsSportType);
-        database.delete(TrainingContract.TrainingEntry.TABLE_NAME, whereTraining, whereArgsTraining);
-
-        exercises.remove(position);
-        getData();
-
-        trainingAdapter.notifyDataSetChanged();
     }
 
     private void getData(){
-        exercises.clear();
-        Cursor cursor = database.query(TrainingContract.TrainingSportType.TABLE_NAME, null, null, null, null, null, null);
-
-        while (cursor.moveToNext()){
-            int id = cursor.getInt(cursor.getColumnIndex(TrainingContract.TrainingSportType._ID));
-            String type_sport = cursor.getString(cursor.getColumnIndex(TrainingContract.TrainingSportType.COLUMN_TYPE_SPORT));
-            long date = cursor.getLong(cursor.getColumnIndex(TrainingContract.TrainingSportType.COLUMN_DATE_SPORT_TYPE));
-            Exercise exercise = new Exercise(id,type_sport, date);
-            exercises.add(exercise);
-        }
-        cursor.close();
+        
     }
 
     public void showDialog(){
@@ -120,23 +98,15 @@ public class MainActivity extends AppCompatActivity implements Datable{
 
     @Override
     public void nameSport(String text) {
+        long date = System.currentTimeMillis();
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(TrainingContract.TrainingSportType.COLUMN_TYPE_SPORT, text);
-        long i = calendar.getTimeInMillis();
-
-        System.out.println(i);
-        contentValues.put(TrainingContract.TrainingSportType.COLUMN_DATE_SPORT_TYPE, i);
-
-        database.insert(TrainingContract.TrainingSportType.TABLE_NAME, null, contentValues);
+        if(text!=null){
+            Exercise exercise = new Exercise(text, date);
+            viewModel.insertExercise(exercise);
+        }
         layoutInflater = LayoutInflater.from(getApplicationContext());
     }
 
-    @Override
-    public void recombination() {
-        getData();
-        trainingAdapter.setExercises(exercises);
-    }
 
     private void intoMain(int position){
         Intent intent = new Intent(this ,Training.class);
