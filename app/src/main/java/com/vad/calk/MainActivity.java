@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements Datable{
     }
 
     private void remove(int position){
-
-
+        Exercise exercise = trainingAdapter.getExercises().get(position);
+        viewModel.deleteExercise(exercise);
     }
 
     private void getData(){
