@@ -101,8 +101,10 @@ public class MainActivity extends AppCompatActivity implements Datable{
         exerciesFromDB.observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(List<Exercise> exercises) {
-                //nul object reference
-                trainingAdapter.setExercises(exercises);
+                if(exercises!=null&&exercises.size()>0){
+                    trainingAdapter.setExercises(exercises);
+                }
+
             }
         });
     }
