@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements Datable{
 
     private Calendar calendar = Calendar.getInstance();
 
+    public MainActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +49,13 @@ public class MainActivity extends AppCompatActivity implements Datable{
         dialogNameSport = new DialogNameSport();
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
 
-        viewModel = new ViewModelProvider(this).get(MainViewModel.class);
         trainingAdapter = new TrainingAdapter();
+
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         getData();
+
+        //viewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
 
         trainingAdapter.setOnItemTrainingListener(new TrainingAdapter.OnItemTrainingListener() {
             @Override
@@ -93,6 +101,7 @@ public class MainActivity extends AppCompatActivity implements Datable{
         exerciesFromDB.observe(this, new Observer<List<Exercise>>() {
             @Override
             public void onChanged(List<Exercise> exercises) {
+                //nul object reference
                 trainingAdapter.setExercises(exercises);
             }
         });
